@@ -22,6 +22,6 @@ const Create_View: React.ForwardRefRenderFunction<Methods, Props> = (props, ref)
         onPress,
     }))
 
-    return <Text>{`props: ${props.value}, state: ${value}: ${Date.now()}`}</Text>
+    return <Text>{`props: ${props.value}, state: ${value}, Now: ${new Date().toISOString()}`}</Text>
 }
 export default React.forwardRef(Create_View)

@@ -11,14 +11,12 @@
 import React from "react"
 import {
 	Button,
-	FlatList,
 	SafeAreaView,
 	Text,
 	View,
 } from "react-native"
 
-import Custom_Method_View, { Methods as Custom_Methods } from "./Custom_Method_View"
-import Forward_Ref_View from "./Forward_Ref_View"
+import Forward_Ref_View, { FlatList_Ref } from "./Forward_Ref_View"
 import useStateCallback from "./useStateCallback"
 
 // [React.memo, React.useCallback, React.useMemo]https://dev.to/dinhhuyams/introduction-to-react-memo-usememo-and-usecallback-5ei3
@@ -47,10 +45,8 @@ export default (): React.ReactElement => {
 		return use_memo_value
 	}, [])
 
-	const [custom_method_value, set_custom_method_value] = React.useState(0)
-	const Custom_Methods_ref = React.useRef<Custom_Methods>(null)
 
-	const Forward_Ref_View_ref = React.useRef<FlatList<string>>(null)
+	const Forward_Ref_View_ref = React.useRef<FlatList_Ref<string>>(null)
 
 	const [stateCallback_start, set_stateCallback_start] = useStateCallback("")
 	const [stateCallback_finished, set_stateCallback_finished] = React.useState("")
@@ -94,21 +90,10 @@ export default (): React.ReactElement => {
 				<Memo_View value={`click times unchange: ${use_memo}`} />
 			</View>
 
-			{/* Custom method */}
+			{/* Forward Ref & Custom method */}
 			<View style={{ alignItems: "center", marginTop: 20, }}>
-				<Button title={"custom method"} onPress={() => {
-					Custom_Methods_ref.current?.onPress()
-					set_custom_method_value(prev => {
-						return prev + 1
-					})
-				}} />
-				<Custom_Method_View ref={Custom_Methods_ref} value={`${custom_method_value}`} />
-			</View>
-
-			{/* Forward Ref */}
-			<View style={{ alignItems: "center", marginTop: 20, }}>
-				<Button title={"forward ref scrollToEnd"} onPress={() => {
-					Forward_Ref_View_ref.current?.scrollToEnd({ animated: true })
+				<Button title={"forward ref custom_scroll"} onPress={() => {
+					Forward_Ref_View_ref.current?.custom_scroll()
 				}} />
 				<Forward_Ref_Component
 					data={["0", "1", "2"]}

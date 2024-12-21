@@ -17,6 +17,7 @@ import {
 } from "react-native"
 
 import Forward_Ref_View, { FlatList_Ref } from "./Forward_Ref_View"
+
 import useStateCallback from "./useStateCallback"
 
 // [React.memo, React.useCallback, React.useMemo]https://dev.to/dinhhuyams/introduction-to-react-memo-usememo-and-usecallback-5ei3
@@ -27,7 +28,7 @@ const Memo_View = React.memo(Create_Memo_View, (prev, next) => {
 	return prev.value === next.value && prev.onPress === next.onPress
 })
 
-const Forward_Ref_Component = Forward_Ref_View<string>()
+// const Forward_Ref_Component = Forward_Ref_View<string>()
 
 export default (): React.ReactElement => {
 	const [parent, set_parent] = React.useState(0)
@@ -44,7 +45,6 @@ export default (): React.ReactElement => {
 	const use_memo = React.useMemo(() => {
 		return use_memo_value
 	}, [])
-
 
 	const Forward_Ref_View_ref = React.useRef<FlatList_Ref<string>>(null)
 
@@ -95,7 +95,7 @@ export default (): React.ReactElement => {
 				<Button title={"forward ref custom_scroll"} onPress={() => {
 					Forward_Ref_View_ref.current?.custom_scroll()
 				}} />
-				<Forward_Ref_Component
+				<Forward_Ref_View
 					data={["0", "1", "2"]}
 					ref={Forward_Ref_View_ref}
 					style={{ height: 35 }}
